@@ -1,7 +1,7 @@
 from sms_portal.scripts import send_sms, write_file
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from scripts import *
+from .scripts import *
 
 # Create your views here.
 
