@@ -18,24 +18,21 @@
                         <img src="{% static 'login/images/logo.jpg' %}" width="30" height="30" class="d-inline-block align-top "
                             alt="LOGO">
 
-                        Welcome  
+                        <span class="ml-2" >Welcome</span> 
                     </a>
 
                     <form class="form-inline pt-3" method = "post" action = "logout/" name = "logout">
+                        Credits : 50
                         <h5 class="pt-2">{{user.first_name}} {{user.last_name}}</h5>
                         {% csrf_token %}
                         <button class="btn btn-danger my-2 my-sm-0 ml-3 a" type="submit" >Logout</button>
                     </form>
                 {% endif %}
-
-                
-                
+               
             </div>
         </nav>
 
-
-
-
+        
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 {% if user.is_authenticated %}
@@ -52,36 +49,33 @@
         </div>
         
         {% if user.is_authenticated %}
-        <div class = "container pt-5">
+        <div class = "container w-50 ">
+            <form method = "POST" name = "sms">
+                {% csrf_token %}
 
-    
-        <form method = "POST" name = "sms">
-            {% csrf_token %}
-
-            <div class="input-group pb-5">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Phone numbers</span>
+                <div class="input-group pb-5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Phone numbers</span>
+                    </div>
+                    <textarea class="form-control" name = "number" aria-label="With textarea"></textarea>
                 </div>
-                <textarea class="form-control" name = "number" aria-label="With textarea"></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="comment">Type your message:</label>
-                <textarea class="form-control" rows="5" id="comment" name = "message"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-
+                
+                <div class="form-group">
+                    <label for="comment">Type your message:</label>
+                    <textarea class="form-control mb-3" rows="5" id="comment" name = "message"></textarea>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
+
         </div>
         {% endif %}
 
         {% if not user.is_authenticated %}
-        <div class="container-fluid">
+        <div class="container">
         <form class="form-inline container" method="get" action="/" name="login">
             <!-- <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Login</button> -->
-
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Login now</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block ">Login now</button>
         </form>
         </div>
         
@@ -89,11 +83,21 @@
 
 
 
+        
+        
+        <div class="container-fluid align-item-center bg-secondary text-white">
+            <div class="copyright text-center py-3 ">
+                Copyright <strong><a class="text-warning" href="https://github.com/rupakroy12">Rupak Roy</a></strong>. All
+                Rights Reserved
+            </div>
+        
+        </div>
 
 
 
 
 
+  
 
 
 

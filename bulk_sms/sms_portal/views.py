@@ -1,7 +1,7 @@
 from sms_portal.scripts import send_sms, write_file
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from scripts import *
+from django.http import HttpResponse,JsonResponse
+from .scripts import *
 
 # Create your views here.
 
@@ -17,15 +17,12 @@ def sms(request):
         print (type(number))
        
         print(number)
-        dict = send_sms(number, message)
-        print(dict)
+        reports = send_sms(number, message)
+        print(reports)
         
-        # writing records to csv
-        # records = {}
-        # records[number] = dict
-        # write_file(records)
-
-        return HttpResponse("<h1>{}</h1>".format(str(dict)))
+        return render(request, "report.html", { 'reports' : reports})
+        
+        # return JsonResponse({"Reports" : dict})
 
     else :
         return render(request, "send_sms.html")
