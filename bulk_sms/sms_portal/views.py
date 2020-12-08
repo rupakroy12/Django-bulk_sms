@@ -1,12 +1,16 @@
 from sms_portal.scripts import send_sms, write_file
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 from userlogin.models import credits, message_reports
 
 import csv
 # from scripts import 
 # import scripts
+=======
+from .scripts import *
+>>>>>>> ee7a3d771593bdd8eb7ce062c3c7be874d9f56fb
 
 # Create your views here.
 
