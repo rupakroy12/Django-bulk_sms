@@ -1,0 +1,55 @@
+{% extends 'bootstrap_template.html' %}
+
+{% block content %}
+
+   
+    <div class="container col-8 pb-5 ">
+        <div class="container pt-3">
+        <h5 class="mb-4 text-center"> SMS history of {{user.username}}</h5>
+        </div>
+        
+        <table class="table table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">sl</th>
+                    <th scope="col">return</th>
+                    <th scope="col">request_id</th>
+                    <th scope="col">message</th>
+                    <th scope="col">status_code</th>
+                    <th scope="col">date</th>
+                </tr>
+            </thead>
+            <tbody>               
+                {% for key, value in report.items %}
+                    
+                    {% if value.return  %}
+                        <tr class="table-success">
+                    {% else %}
+                        <tr class="table-danger">
+                    {% endif %}
+                            <th scope="row">{{ key }}</th>
+                            
+                            <td>{{ value.return }}</td>
+                            <td>{{ value.request_id }}</td>
+                            <td>{{ value.message }}</td>
+                            <td>{{ value.status_code }}</td>
+                            <td>{{ value.date }}</td>
+                        </tr>
+            
+                {% endfor %}
+               
+            </tbody>
+        </table>
+        
+        <div class="container text-center">
+            <a class="text-right" href="/sms"> Back to Portal</a>
+        </div>
+
+    
+    </div>
+
+
+
+ 
+
+{% endblock %}

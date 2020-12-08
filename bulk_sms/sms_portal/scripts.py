@@ -13,7 +13,7 @@ def send_sms(number, message):
     # print(f'from script\n{number}')
 
     params = {
-        'authorization': '8iQnCNvMcg69lHoyYfK2arVmOGUBtkAzjLRqPThd70W3bsuDXeUvWTbntzmrO5ARKHVcoQGZDLa49PFp',
+        'authorization': 're81nJgdwaOk0tH3R6bhCDvKE5P7U2puBmQ9XLcqAVxyI4jslfPpnXAZzJdYED8ISK2WBR0olCay1Ngu',
         'sender_id': 'FSTSMS',
         'message': message,
         'language': 'english',

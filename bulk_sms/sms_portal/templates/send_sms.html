@@ -9,64 +9,132 @@
     </head>
 
     <body>
+       
+    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-bg-gradient shadow" id="nav-color">
+       <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'login/images/logo.jpg' %}" width="30" height="30" class="d-inline-block align-top " alt="LOGO">
+            <span class="mx-2">Hello, <strong> {{user.first_name}} {{user.last_name}} </strong></span>
+        </a>
         
-        <nav class="navbar navbar-light container-fluid" style="background-color: #e3f2fd;">
-            <div class= "container">
-                
-                {% if user.is_authenticated %}
-                    <a class="navbar-brand" href="#">
-                        <img src="{% static 'login/images/logo.jpg' %}" width="30" height="30" class="d-inline-block align-top "
-                            alt="LOGO">
+        
+        
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse mt-3" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item active pr-4">
+                    <a class="nav-link" >Credits left : <strong>{{credit}}</strong></a>
+                </li>
 
-                        <span class="ml-2" >Welcome</span> 
-                    </a>
+                <li class="nav-item active pr-4">
+                    <a class="nav-link text-primary" href="/sms/sms_reports"> SMS History </a>
+                </li>
 
-                    <form class="form-inline pt-3" method = "post" action = "logout/" name = "logout">
-                        Credits : 50
-                        <h5 class="pt-2">{{user.first_name}} {{user.last_name}}</h5>
-                        {% csrf_token %}
-                        <button class="btn btn-danger my-2 my-sm-0 ml-3 a" type="submit" >Logout</button>
+                <li class="nav-item active">
+                    <form class="form-inline" method="post" action="logout/" name="logout">
+                       {% csrf_token %} 
+                        <button class="btn  btn-outline-danger " type="submit">Logout</button>
                     </form>
-                {% endif %}
+                </li>
+                
                
-            </div>
-        </nav>
-
+            </ul>
+                       
+        </div>
+        </div>
         
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+    </nav>
+       
+        <div class="jumbotron jumbotron-fluid  " id="jumbotron">
+            <div class="container text-white font-weight-bold">
                 {% if user.is_authenticated %}
-                    <h1 class="display-4"> SMS sending portal</h1>
+                    <h1 class="display-4 font-weight-bold"> SMS sending portal</h1>
                     <p class="lead">Send bulk-sms to your contacts in one click using this web app</p>
                 {% endif %}
 
 
                 {% if not user.is_authenticated %}
-                    <h1 class="display-4">User not authenticated</h1>
+                    <h1 class="display-4 ">User not authenticated</h1>
                 {% endif %}
                 
             </div>
         </div>
         
         {% if user.is_authenticated %}
-        <div class = "container w-50 ">
-            <form method = "POST" name = "sms">
-                {% csrf_token %}
-
-                <div class="input-group pb-5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Phone numbers</span>
-                    </div>
-                    <textarea class="form-control" name = "number" aria-label="With textarea"></textarea>
-                </div>
+        
+        <div class = "container">
+            
+            <div class="row justify-content-center px-5">
                 
-                <div class="form-group">
-                    <label for="comment">Type your message:</label>
-                    <textarea class="form-control mb-3" rows="5" id="comment" name = "message"></textarea>
-                    
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-sm-7 ">
+                    <form method = "POST" name = "sms">
+                        {% csrf_token %}
+
+                        <div class="input-group pb-5 ">
+                            <div class="input-group-prepend ">
+                                <span class="input-group-text font-weight-bold">Phone numbers</span>
+                            </div>
+                            <textarea class="form-control shadow" name = "number" aria-label="With textarea"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comment" class="font-weight-bold" >Type your message:</label>
+                            <textarea class="form-control mb-3 shadow" rows="6" id="comment" name = "message"></textarea>
+                            
+                            <button type="submit" class="btn btn-primary  mb-5">Send Now</button>
+                        </div>
+                        
+                    </form>
                 </div>
-            </form>
+          
+
+                <div class="col p-auto">
+                    <div class="card border-light mb-3" style="max-width: 18rem;">
+                        <div class="card shadow" id="card-sms-history">
+                            <div class="card-body">
+                                <h5 class="card-title">SMS History</h5>
+                                <p class="card-text">Check your sent sms history from here</p>
+                                <a href="/sms/sms_reports" class="btn btn-outline-success">Click Here</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- upload csv form
+                <div class="col p-auto">
+                    <div class="card border-light mb-3" style="max-width: 18rem;">
+                        <div class="card shadow" id="card-sms-history">
+                            <div class="card-body">
+                                <h5 class="card-title">Upload CSV</h5>
+                                   
+                                    <form action="/sms/read_csv" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+                                            <div class="col-md-8">
+                                                <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+                                                <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload"
+                                                        style="margin-right:5px;"></span>Upload </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+
 
         </div>
         {% endif %}
@@ -74,6 +142,7 @@
         {% if not user.is_authenticated %}
         <div class="container">
         <form class="form-inline container" method="get" action="/" name="login">
+            
             <!-- <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Login</button> -->
             <button type="submit" class="btn btn-primary btn-lg btn-block ">Login now</button>
         </form>
@@ -85,7 +154,7 @@
 
         
         
-        <div class="container-fluid align-item-center bg-secondary text-white">
+        <div class="container-fluid  flex-fill align-item-center bg-secondary text-white">
             <div class="copyright text-center py-3 ">
                 Copyright <strong><a class="text-warning" href="https://github.com/rupakroy12">Rupak Roy</a></strong>. All
                 Rights Reserved

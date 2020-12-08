@@ -2,6 +2,7 @@ from sms_portal.scripts import send_sms
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from userlogin.models import credits
 from django.contrib.auth import *
 import django
 # Create your views here.
@@ -48,8 +49,12 @@ def signup(request):
                 return HttpResponse("<h1>Username :'{}' exists already</h1>".format(first_name))
                 
             else:
-                user = User.objects.create_user(username = username, password = password, first_name = first_name, last_name = last_name, email=email)
-                user.save()              
+                us = User.objects.create_user(username = username, password = password, first_name = first_name, last_name = last_name, email=email)
+                us.save() 
+
+                cred = credits(user = us)
+                # cred.username = user
+                cred.save()
                 return redirect("login")
 
         else: 
